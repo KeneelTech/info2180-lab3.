@@ -2,10 +2,9 @@
 
 document.addEventListener("DOMContentLoaded", function(){
     let player = 'X';
-    let winner = false;
     let gameState = ['', '', '', '', '', '', '', '', ''];
     const gameStatus = document.querySelector("#status")
-
+    const newGame = document.querySelector(".btn")
 
     const winningCombinations = [
         [0, 1, 2],
@@ -18,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function(){
         [2, 4, 6],
       ];
 
-
     const squares = document.querySelectorAll("#board > div");
     console.log(squares);
 
@@ -28,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function(){
             if(!elem.textContent){
                 elem.textContent = player;
                 elem.classList.add(player);
-
 
                 gameState[index] = elem.textContent;
                 console.log(gameState);
@@ -55,9 +52,17 @@ document.addEventListener("DOMContentLoaded", function(){
         elem.addEventListener('mouseout', function() {
             elem.classList.remove("hover")
         });
+ 
+        newGame.addEventListener('click', e => {
+        e.preventDefault();
+        player = 'X'
+        gameState = ['', '', '', '', '', '', '', '', ''];
+        elem.textContent = null;
+        gameStatus.classList.remove("you-won");
+        gameStatus.textContent = `Move your mouse over a square and click to play an X or an O.`;
+        });
     });
 
-    
     function checkWinner() {
         for (let i = 0; i < winningCombinations.length; i++) {
             const [a, b, c] = winningCombinations[i];
@@ -68,6 +73,6 @@ document.addEventListener("DOMContentLoaded", function(){
         return false;
     }
 
-
+    
 });
 
